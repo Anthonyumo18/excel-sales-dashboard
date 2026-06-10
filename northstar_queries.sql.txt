@@ -1,0 +1,14 @@
+SELECT order_date, product, revenue, sales_rep FROM northstar_sales WHERE region = 'North';   
+   (Find all north region orders)
+   
+SELECT region, SUM(revenue) AS total_revenue, SUM(revenue - cost) AS total_profit FROM northstar_sales GROUP BY region ORDER BY total_profit DESC; 
+(Total revenue and profit per region)  
+
+SELECT sales_rep, SUM(revenue) AS total_revenue, COUNT(order_id) AS total_orders FROM northstar_sales GROUP BY sales_rep ORDER BY total_revenue DESC LIMIT 3;
+(Top 3 sales reps by revenue)
+
+SELECT order_id, order_date, region, product, revenue, sales_rep FROM northstar_sales WHERE customer_tier = 'Platinum' AND revenue > 3000 ORDER BY revenue DESC;
+(Platinum orders over 3000)
+
+SELECT product, SUM(revenue) AS total_revenue, SUM(revenue - cost) AS total_profit, ROUND( SUM(revenue - cost) * 100.0 / SUM(revenue), 1 ) AS margin_pct FROM northstar_sales GROUP BY product HAVING ROUND( SUM(revenue - cost) * 100.0 / SUM(revenue), 1 ) > 30 ORDER BY margin_pct DESC;
+(Profit margin per product)
